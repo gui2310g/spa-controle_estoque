@@ -3,10 +3,12 @@ import Header from "../../components/Header.vue";
 </script>
 
 <template>
-  <Header name="User" />
+
+  <Header name="Admin" />
 
   <div class="flex justify-center gap-2">
-    <h1>User Page</h1>
-    <p>This is the user page.</p>
+    <h1>Admin Page</h1>
+    <p>This is the admin page.</p>
   </div>
 </template>
+    
