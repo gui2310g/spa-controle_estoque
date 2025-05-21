@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import Header from "../../components/Header.vue";
+import AppSidebar from '@/components/AppSidebar.vue'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import HeaderComponent from '@/components/HeaderComponent.vue'
 </script>
 
 <template>
-
-  <Header name="Admin" />
-
-  <div class="flex justify-center gap-2">
-    <h1>Admin Page</h1>
-    <p>This is the admin page.</p>
-  </div>
+  <SidebarProvider>
+    <AppSidebar />
+    <SidebarInset>
+      <HeaderComponent />
+      <div>
+        <h1>Admin page</h1>
+        <span>Essa é a pagina do admin</span>
+      </div>
+    </SidebarInset>
+  </SidebarProvider>
 </template>
-    
