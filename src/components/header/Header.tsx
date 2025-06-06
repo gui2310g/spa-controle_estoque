@@ -13,7 +13,7 @@ import Navigation from '@/components/header/navigation'
 
 export default function Header({ isAdminNav = false }: { isAdminNav: boolean }) {
   return (
-    <header className="p-4 flex  bg-blue-900 text-white items-center justify-between">
+    <header className="p-4 flex  bg-blue-900 text-white items-center justify-between w-full">
       <div className="lg:hidden flex items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator
