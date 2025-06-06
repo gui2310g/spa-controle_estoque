@@ -10,16 +10,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import useNav from '@/hooks/use-nav'
+import useNav from '@/utils/navMain'
 
-
-const data = useNav();
+const data = useNav()
 
 export function AppSidebar({
   isAdmin,
-  isSidebar = true, 
+  isSidebar = true,
   ...props
-}: React.ComponentProps<typeof Sidebar> & { isAdmin: boolean; isSidebar?: boolean }) {
+}: React.ComponentProps<typeof Sidebar> & {
+  isAdmin: boolean
+  isSidebar?: boolean
+}) {
   return (
     <Sidebar {...props}>
       <SidebarContent>

@@ -1,11 +1,14 @@
 import { Link } from '@tanstack/react-router'
-import useNav from '@/hooks/use-nav'
+import useNav from '@/utils/navMain'
 
 const nav = useNav()
 
 export default function Navigation({
   isAdminNav = false,
-}: { isAdminNav: boolean, isSidebar?: boolean}) {
+}: {
+  isAdminNav: boolean
+  isSidebar?: boolean
+}) {
   return (
     <nav className="lg:flex flex-row text-white hidden">
       {nav.map((item) => (
