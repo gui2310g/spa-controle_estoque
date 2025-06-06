@@ -1,24 +1,17 @@
 "use client"
 
-import { MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import type { ColumnDef } from "@tanstack/react-table"
- 
+import type { Users } from "@/@types/Users"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export type Users = {
-  id: string
-  nome: string
-  DataCriacao: Date
-  email: string
-}
 
 export const columns: Array<ColumnDef<Users>> = [
   {
@@ -31,7 +24,17 @@ export const columns: Array<ColumnDef<Users>> = [
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Email
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: "DataCriacao",
