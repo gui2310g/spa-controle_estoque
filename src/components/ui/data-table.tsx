@@ -11,7 +11,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { ReusableDialog } from '../reusable-dialog'
+import { ReusableDialog } from './dialog' 
 import type {
   ColumnDef,
   ColumnFiltersState,

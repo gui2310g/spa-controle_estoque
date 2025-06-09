@@ -2,6 +2,7 @@ import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { XIcon } from "lucide-react"
 
+import type { ReusableDialogProps } from "@/@types/ReusableDialogProps"
 import { cn } from "@/lib/utils"
 
 function Dialog({
@@ -124,6 +125,38 @@ function DialogDescription({
       className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
+  )
+}
+
+export function ReusableDialog({
+  trigger,
+  title,
+  description,
+  children,
+  onConfirm,
+  confirmText = "Confirmar"
+}: ReusableDialogProps) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          {description && <DialogDescription>{description}</DialogDescription>}
+        </DialogHeader>
+        <div>{children}</div>
+        <div className="flex justify-end gap-2 mt-4">
+          {onConfirm && (
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={onConfirm}
+            >
+              {confirmText}
+            </button>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   )
 }
 

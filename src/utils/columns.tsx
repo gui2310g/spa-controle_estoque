@@ -4,7 +4,7 @@ import { ArrowUpDown } from 'lucide-react'
 import type { ColumnDef } from '@tanstack/react-table'
 import type { Users } from '@/@types/Users'
 import { Button } from '@/components/ui/button'
-import { ReusableDialog } from '@/components/reusable-dialog'
+import { ReusableDialog } from '@/components/ui/dialog' 
 
 export const columns: Array<ColumnDef<Users>> = [
   {
