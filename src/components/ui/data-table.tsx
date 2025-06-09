@@ -1,15 +1,26 @@
 'use client'
 
-import * as React from "react"
+import * as React from 'react'
+
 import {
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-import type { ColumnDef, SortingState } from '@tanstack/react-table'
+} from '@tanstack/react-table'
+
+import { ReusableDialog } from '../reusable-dialog'
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+} from '@tanstack/react-table'
+
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 import {
   Table,
@@ -30,6 +41,11 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    [],
+  )
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({})
 
   const table = useReactTable({
     data,
@@ -38,9 +54,10 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-    state: {
-      sorting,
-    },
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    state: { sorting, columnFilters, columnVisibility },
     filterFns: {
       fuzzy: (row, columnId, filterValue) => {
         const value = row.getValue(columnId)
@@ -52,8 +69,40 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <>
-      <div className="rounded-md border mt-20 max-w-7xl w-full overflow-x-auto">
+    <div className="rounded-md max-w-7xl w-full">
+      <div className="flex items-center justify-between py-4">
+        <Input
+          placeholder="Filtrar emails..."
+          value={(table.getColumn('email')?.getFilterValue() as string) || ''}
+          onChange={(event) =>
+            table.getColumn('email')?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+
+        <ReusableDialog
+          trigger={<Button variant="outline">Adicionar</Button>}
+          title="Adicionar Item"
+          description="Preencha os campos para adicionar um novo item."
+          onConfirm={() => {
+            console.log('Item adicionado!')
+          }}
+        >
+          <form>
+            <input
+              type="text"
+              placeholder="Nome"
+              className="w-full border rounded p-2 mb-2"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full border rounded p-2 mb-2"
+            />
+          </form>
+        </ReusableDialog>
+      </div>
+      <div className="border overflow-x-auto">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -121,6 +170,6 @@ export function DataTable<TData, TValue>({
           Next
         </Button>
       </div>
-    </>
+    </div>
   )
 }
