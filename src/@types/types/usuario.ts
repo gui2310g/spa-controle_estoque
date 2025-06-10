@@ -1,5 +1,5 @@
 export type Users = {
-    id: string
+    id: number
     nome: string
     DataCriacao: Date
     email: string

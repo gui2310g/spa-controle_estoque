@@ -10,7 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import useNav from '@/utils/navMain'
+import useNav from '@/utils/nav-util'
 
 const data = useNav()
 

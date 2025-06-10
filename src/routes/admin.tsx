@@ -1,10 +1,20 @@
-import { createFileRoute } from '@tanstack/react-router'
-import AdminUser from '@/pages/admin/users/User'
+import { Outlet, createFileRoute } from '@tanstack/react-router'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import { AppSidebar } from '@/components/app-sidebar'
+import Header from '@/components/header/Header'
 
 export const Route = createFileRoute('/admin')({
-  component: RouteComponent,
+  component: AdminLayout,
 })
 
-function RouteComponent() {
-  return <AdminUser />
+function AdminLayout() {
+  return (
+    <SidebarProvider>
+      <AppSidebar isAdmin={true} isSidebar={true} />
+      <SidebarInset>
+        <Header isAdminNav={true} />
+        <Outlet /> 
+      </SidebarInset>
+    </SidebarProvider>
+  )
 }

@@ -1,29 +1,24 @@
 import { Link } from '@tanstack/react-router'
-import useNav from '@/utils/navMain'
+import { useNav } from '@/hooks/use-nav'
 
-const nav = useNav()
+type Props = { isAdminNav?: boolean}
 
-export default function Navigation({
-  isAdminNav = false,
-}: {
-  isAdminNav: boolean
-  isSidebar?: boolean
-}) {
+export default function Navigation({ isAdminNav = false }: Props) {
+  const nav = useNav(isAdminNav ? 'admin' : 'user') 
+
   return (
     <nav className="lg:flex flex-row text-white hidden">
-      {nav.map((item) => (
-        <div key={item.title}>
-          {item.items
-            .filter((menuItem) => isAdminNav || !menuItem.isAdminPage)
-            .map((menuItem) => (
-              <Link
-                key={menuItem.title}
-                to={menuItem.url}
-                className="px-2 font-bold hover:text-gray-300"
-              >
-                {menuItem.title}
-              </Link>
-            ))}
+      {nav.map((section) => (
+        <div key={section.title} className="flex gap-2">
+          {section.items.map((item) => (
+            <Link
+              key={item.title}
+              to={item.url}
+              className="px-2 font-bold hover:text-gray-300"
+            >
+              {item.title}
+            </Link>
+          ))}
         </div>
       ))}
     </nav>

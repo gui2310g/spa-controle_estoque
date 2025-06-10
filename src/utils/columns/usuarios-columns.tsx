@@ -1,12 +1,12 @@
 'use client'
 
 import type { ColumnDef } from '@tanstack/react-table'
-import type { Users } from '@/@types/types/Users'
+import type { Users } from '@/@types/types/usuario'
 import { Button } from '@/components/ui/button'
 import { ReusableDialog } from '@/components/ui/dialog'
 import { DataTableSort } from '@/components/data-table/data-table-sort'
 
-export const columns: Array<ColumnDef<Users>> = [
+export const UsuarioColumns: Array<ColumnDef<Users>> = [
   {
     accessorKey: 'id',
     header: 'id',
