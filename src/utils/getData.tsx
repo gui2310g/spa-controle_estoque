@@ -1,4 +1,4 @@
-import type { Users } from "@/@types/Users";
+import type { Users } from '@/@types/types/Users'
 
 export function getData(): Array<Users> {
   return [
@@ -18,7 +18,7 @@ export function getData(): Array<Users> {
       id: '728ed52h',
       nome: 'Maria Oliveira',
       DataCriacao: new Date(2023, 9, 3),
-      email: 'amora@outlook.com'
-    }
+      email: 'amora@outlook.com',
+    },
   ]
 }

@@ -11,16 +11,18 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { ReusableDialog } from './dialog' 
+import { ReusableDialog } from '../ui/dialog'
+import { DataTablePagination } from './data-table-pagination'
+import { DataTableFilter } from './data-table-filter'
+
 import type {
-  ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
 } from '@tanstack/react-table'
 
+import type { DataTableProps } from '@/@types/interfaces/data-table-props'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 
 import {
   Table,
@@ -31,14 +33,16 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-interface DataTableProps<TData, TValue> {
-  columns: Array<ColumnDef<TData, TValue>>
-  data: Array<TData>
-}
-
 export function DataTable<TData, TValue>({
   columns,
   data,
+  filterColumn,
+  filterPlaceholder = 'Filtrar...',
+  dialogTitle,
+  dialogDescription,
+  dialogContent,
+  showAddButton = true,
+  onDialogConfirm,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -71,37 +75,25 @@ export function DataTable<TData, TValue>({
   return (
     <div className="rounded-md max-w-7xl w-full">
       <div className="flex items-center justify-between py-4">
-        <Input
-          placeholder="Filtrar emails..."
-          value={(table.getColumn('email')?.getFilterValue() as string) || ''}
-          onChange={(event) =>
-            table.getColumn('email')?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+        {table.getColumn(filterColumn) && (
+          <DataTableFilter
+            column={table.getColumn(filterColumn)!}
+            placeholder={filterPlaceholder}
+          />
+        )}
 
-        <ReusableDialog
-          trigger={<Button variant="outline">Adicionar</Button>}
-          title="Adicionar Item"
-          description="Preencha os campos para adicionar um novo item."
-          onConfirm={() => {
-            console.log('Item adicionado!')
-          }}
-        >
-          <form>
-            <input
-              type="text"
-              placeholder="Nome"
-              className="w-full border rounded p-2 mb-2"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full border rounded p-2 mb-2"
-            />
-          </form>
-        </ReusableDialog>
+        {showAddButton && (
+          <ReusableDialog
+            trigger={<Button variant="outline">Adicionar</Button>}
+            title={dialogTitle ?? 'Default Title'}
+            description={dialogDescription}
+            onConfirm={onDialogConfirm}
+          >
+            {dialogContent}
+          </ReusableDialog>
+        )}
       </div>
+
       <div className="border overflow-x-auto">
         <Table>
           <TableHeader>
@@ -152,24 +144,8 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+
+      <DataTablePagination table={table} />
     </div>
   )
 }

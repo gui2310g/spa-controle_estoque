@@ -1,10 +1,10 @@
 'use client'
 
-import { ArrowUpDown } from 'lucide-react'
 import type { ColumnDef } from '@tanstack/react-table'
-import type { Users } from '@/@types/Users'
+import type { Users } from '@/@types/types/Users'
 import { Button } from '@/components/ui/button'
-import { ReusableDialog } from '@/components/ui/dialog' 
+import { ReusableDialog } from '@/components/ui/dialog'
+import { DataTableSort } from '@/components/data-table/data-table-sort'
 
 export const columns: Array<ColumnDef<Users>> = [
   {
@@ -18,15 +18,7 @@ export const columns: Array<ColumnDef<Users>> = [
   {
     accessorKey: 'email',
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
+      return <DataTableSort column={column} title="Email" />
     },
   },
   {
