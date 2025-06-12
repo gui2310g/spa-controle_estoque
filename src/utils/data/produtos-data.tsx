@@ -1,0 +1,66 @@
+import type { Produto } from '@/@types/types/produtos'
+
+export function getProdutosData(): Array<Produto> {
+  return [
+    {
+      id: 1,
+      nome: 'Produto A',
+      descricao: 'Descrição do Produto A',
+      preco: 100.0,
+      estoque_atual: 50,
+      estoque_minimo: 10,
+      categoria: { id: 1, nome: 'Categoria A', produtos: [] },
+      sku: 'SKU001',
+    },
+    {
+      id: 2,
+      nome: 'Produto B',
+      descricao: 'Descrição do Produto B',
+      preco: 200.0,
+      estoque_atual: 30,
+      estoque_minimo: 5,
+      categoria: { id: 2, nome: 'Categoria B', produtos: [] },
+      sku: 'SKU002',
+    },
+    {
+      id: 3,
+      nome: 'Produto C',
+      descricao: 'Descrição do Produto C',
+      preco: 150.0,
+      estoque_atual: 20,
+      estoque_minimo: 8,
+      categoria: { id: 1, nome: 'Categoria A', produtos: [] },
+      sku: 'SKU003',
+    },
+    {
+      id: 4,
+      nome: 'Produto D',
+      descricao: 'Descrição do Produto D',
+      preco: 150.0,
+      estoque_atual: 20,
+      estoque_minimo: 8,
+      categoria: { id: 3, nome: 'Categoria C', produtos: [] },
+      sku: 'SKU003',
+    },
+    {
+      id: 5,
+      nome: 'Produto D',
+      descricao: 'Descrição do Produto D',
+      preco: 150.0,
+      estoque_atual: 20,
+      estoque_minimo: 8,
+      categoria: { id: 3, nome: 'Categoria C', produtos: [] },
+      sku: 'SKU003',
+    },
+    {
+      id: 6,
+      nome: 'Produto E',
+      descricao: 'Descrição do Produto E',
+      preco: 150.0,
+      estoque_atual: 20,
+      estoque_minimo: 8,
+      categoria: { id: 1, nome: 'Categoria A', produtos: [] },
+      sku: 'SKU003',
+    },
+  ]
+}

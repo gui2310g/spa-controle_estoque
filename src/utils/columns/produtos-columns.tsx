@@ -1,35 +1,45 @@
-'use client'
-
+import type { Produto } from '@/@types/types/produtos'
 import type { ColumnDef } from '@tanstack/react-table'
-import type { Users } from '@/@types/types/usuario'
-import { Button } from '@/components/ui/button'
-import { ReusableDialog } from '@/components/ui/dialog'
 import { DataTableSort } from '@/components/data-table/data-table-sort'
+import { ReusableDialog } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 
-export const UsuarioColumns: Array<ColumnDef<Users>> = [
+export const ProdutosColumns: Array<ColumnDef<Produto>> = [
   {
     accessorKey: 'id',
-    header: 'id',
+    header: 'Id',
   },
   {
     accessorKey: 'nome',
-    header: 'Nome',
-  },
-  {
-    accessorKey: 'email',
     header: ({ column }) => {
-      return <DataTableSort column={column} title="Email" />
+      return <DataTableSort column={column} title="Nome" />
     },
   },
   {
-    accessorKey: 'DataCriacao',
-    header: 'Data de Criação',
-    cell: ({ row }) => {
-      const data = row.original.DataCriacao
-      return new Intl.DateTimeFormat('pt-BR', {
-        dateStyle: 'short',
-      }).format(data)
+    accessorKey: 'descricao',
+    header: 'Descrição',
+  },
+  {
+    accessorKey: 'preco',
+    header: 'Preço',
+  },
+  {
+    accessorKey: 'estoque_atual',
+    header: 'Estoque Atual',
+  },
+  {
+    accessorKey: 'estoque_minimo',
+    header: 'Estoque Mínimo',
+  },
+  {
+    accessorKey: 'categoria.nome',
+    header: ({ column }) => {
+      return <DataTableSort column={column} title="Categoria" />
     },
+  },
+  {
+    accessorKey: 'sku',
+    header: 'Sku',
   },
   {
     id: 'actions',
@@ -59,10 +69,10 @@ export const UsuarioColumns: Array<ColumnDef<Users>> = [
           </ReusableDialog>
           <ReusableDialog
             trigger={<Button variant="outline">Deletar</Button>}
-            title="Deletar item"
-            description="Certeza que deseja deletar este item?"
+            title="Deletar produto"
+            description="Certeza que deseja deletar produto?"
             onConfirm={() => {
-              console.log('Item Deletado')
+              console.log('produt Deletado')
             }}
           ></ReusableDialog>
         </div>

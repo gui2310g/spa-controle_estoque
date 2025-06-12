@@ -11,7 +11,9 @@ export const FornecedoresColumns: Array<ColumnDef<Fornecedor>> = [
   },
   {
     accessorKey: 'nome',
-    header: 'Nome',
+    header: ({ column }) => {
+      return <DataTableSort column={column} title="Nome" />
+    },
   },
   {
     accessorKey: 'status',
@@ -47,7 +49,7 @@ export const FornecedoresColumns: Array<ColumnDef<Fornecedor>> = [
     id: 'actions',
     cell: () => {
       return (
-        <div className="flex gap-2">
+        <div className="flex justify-end gap-5">
           <ReusableDialog
             trigger={<Button variant="outline">Atualizar</Button>}
             title="Atualizar Item"

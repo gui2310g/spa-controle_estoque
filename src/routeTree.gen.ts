@@ -18,7 +18,9 @@ import { Route as UserFornecedoresImport } from './routes/user/fornecedores'
 import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableImport } from './routes/demo.table'
 import { Route as AdminUsuariosImport } from './routes/admin/usuarios'
+import { Route as AdminProdutosImport } from './routes/admin/produtos'
 import { Route as AdminFornecedoresImport } from './routes/admin/fornecedores'
+import { Route as AdminCategoriasImport } from './routes/admin/categorias'
 import { Route as DemoFormSimpleImport } from './routes/demo.form.simple'
 import { Route as DemoFormAddressImport } from './routes/demo.form.address'
 
@@ -66,9 +68,21 @@ const AdminUsuariosRoute = AdminUsuariosImport.update({
   getParentRoute: () => AdminRoute,
 } as any)
 
+const AdminProdutosRoute = AdminProdutosImport.update({
+  id: '/produtos',
+  path: '/produtos',
+  getParentRoute: () => AdminRoute,
+} as any)
+
 const AdminFornecedoresRoute = AdminFornecedoresImport.update({
   id: '/fornecedores',
   path: '/fornecedores',
+  getParentRoute: () => AdminRoute,
+} as any)
+
+const AdminCategoriasRoute = AdminCategoriasImport.update({
+  id: '/categorias',
+  path: '/categorias',
   getParentRoute: () => AdminRoute,
 } as any)
 
@@ -109,11 +123,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsuariosImport
       parentRoute: typeof rootRoute
     }
+    '/admin/categorias': {
+      id: '/admin/categorias'
+      path: '/categorias'
+      fullPath: '/admin/categorias'
+      preLoaderRoute: typeof AdminCategoriasImport
+      parentRoute: typeof AdminImport
+    }
     '/admin/fornecedores': {
       id: '/admin/fornecedores'
       path: '/fornecedores'
       fullPath: '/admin/fornecedores'
       preLoaderRoute: typeof AdminFornecedoresImport
+      parentRoute: typeof AdminImport
+    }
+    '/admin/produtos': {
+      id: '/admin/produtos'
+      path: '/produtos'
+      fullPath: '/admin/produtos'
+      preLoaderRoute: typeof AdminProdutosImport
       parentRoute: typeof AdminImport
     }
     '/admin/usuarios': {
@@ -164,12 +192,16 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AdminRouteChildren {
+  AdminCategoriasRoute: typeof AdminCategoriasRoute
   AdminFornecedoresRoute: typeof AdminFornecedoresRoute
+  AdminProdutosRoute: typeof AdminProdutosRoute
   AdminUsuariosRoute: typeof AdminUsuariosRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminCategoriasRoute: AdminCategoriasRoute,
   AdminFornecedoresRoute: AdminFornecedoresRoute,
+  AdminProdutosRoute: AdminProdutosRoute,
   AdminUsuariosRoute: AdminUsuariosRoute,
 }
 
@@ -179,7 +211,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/usuarios': typeof UsuariosRoute
+  '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/fornecedores': typeof AdminFornecedoresRoute
+  '/admin/produtos': typeof AdminProdutosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -192,7 +226,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/usuarios': typeof UsuariosRoute
+  '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/fornecedores': typeof AdminFornecedoresRoute
+  '/admin/produtos': typeof AdminProdutosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -206,7 +242,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/usuarios': typeof UsuariosRoute
+  '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/fornecedores': typeof AdminFornecedoresRoute
+  '/admin/produtos': typeof AdminProdutosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -221,7 +259,9 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/usuarios'
+    | '/admin/categorias'
     | '/admin/fornecedores'
+    | '/admin/produtos'
     | '/admin/usuarios'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -233,7 +273,9 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/usuarios'
+    | '/admin/categorias'
     | '/admin/fornecedores'
+    | '/admin/produtos'
     | '/admin/usuarios'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -245,7 +287,9 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/usuarios'
+    | '/admin/categorias'
     | '/admin/fornecedores'
+    | '/admin/produtos'
     | '/admin/usuarios'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -303,15 +347,25 @@ export const routeTree = rootRoute
     "/admin": {
       "filePath": "admin.tsx",
       "children": [
+        "/admin/categorias",
         "/admin/fornecedores",
+        "/admin/produtos",
         "/admin/usuarios"
       ]
     },
     "/usuarios": {
       "filePath": "usuarios.tsx"
     },
+    "/admin/categorias": {
+      "filePath": "admin/categorias.tsx",
+      "parent": "/admin"
+    },
     "/admin/fornecedores": {
       "filePath": "admin/fornecedores.tsx",
+      "parent": "/admin"
+    },
+    "/admin/produtos": {
+      "filePath": "admin/produtos.tsx",
       "parent": "/admin"
     },
     "/admin/usuarios": {

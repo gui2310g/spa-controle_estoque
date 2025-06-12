@@ -7,9 +7,9 @@ export const Route = createFileRoute('/admin/usuarios')({
   component: UsuariosRoute,
 })
 
-const data = getUsuariosData();
+const data = getUsuariosData()
 
-export function UsuariosRoute() {
+function UsuariosRoute() {
   return (
     <DataTable
       columns={UsuarioColumns}
