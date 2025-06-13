@@ -1,5 +1,5 @@
 import * as React from 'react'
-
+import { Link } from '@tanstack/react-router'
 import {
   Sidebar,
   SidebarContent,
@@ -10,9 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import useNav from '@/utils/nav-util'
-
-const data = useNav()
+import { useNav } from '@/hooks/use-nav'
 
 export function AppSidebar({
   isAdmin,
@@ -22,23 +20,25 @@ export function AppSidebar({
   isAdmin: boolean
   isSidebar?: boolean
 }) {
+  const data = useNav(isAdmin)
+
   return (
     <Sidebar {...props}>
       <SidebarContent>
-        {data.map((item) => (
-          <SidebarGroup key={item.title}>
-            {isSidebar && <SidebarGroupLabel>{item.title}</SidebarGroupLabel>}
+        {data.map((section) => (
+          <SidebarGroup key={section.title}>
+            {isSidebar && (
+              <SidebarGroupLabel>{section.title}</SidebarGroupLabel>
+            )}
             <SidebarGroupContent>
               <SidebarMenu>
-                {item.items
-                  .filter((menuItem) => isAdmin || !menuItem.isAdminPage)
-                  .map((menuItem) => (
-                    <SidebarMenuItem key={menuItem.title}>
-                      <SidebarMenuButton asChild>
-                        <a href={menuItem.url}>{menuItem.title}</a>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
+                {section.items.map((menuItem) => (
+                  <SidebarMenuItem key={menuItem.title}>
+                    <SidebarMenuButton asChild>
+                      <Link to={menuItem.url}>{menuItem.title}</Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

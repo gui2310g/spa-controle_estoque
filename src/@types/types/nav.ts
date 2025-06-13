@@ -1,8 +1,7 @@
-type NavItem = {
+export type NavItem = {
   title: string
-  adminUrl?: string
-  userUrl?: string
-  isAdminPage?: boolean
+  url: string
+  isAdmin: boolean
 }
 
 export type NavSection = {

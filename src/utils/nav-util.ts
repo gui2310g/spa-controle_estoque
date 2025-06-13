@@ -1,39 +1,24 @@
 import type { NavSection } from '@/@types/types/nav'
 
-const navMain = (): Array<NavSection> => [
+export const navMain = (): Array<
+  Omit<NavSection, 'items'> & {
+    items: Array<{
+      title: string
+      path: string 
+    }>
+  }
+> => [
   {
     title: 'Controle de Estoque',
     url: '#',
     items: [
-      { title: 'Usuarios', adminUrl: 'admin/usuarios', isAdminPage: true },
-      {
-        title: 'Fornecedores',
-        adminUrl: 'admin/fornecedores',
-        userUrl: 'user/fornecedores',
-      },
-      {
-        title: 'Produtos',
-        adminUrl: 'admin/produtos',
-        userUrl: 'user/produtos',
-      },
-      {
-        title: 'Categorias',
-        adminUrl: 'admin/categorias',
-        userUrl: 'user/categorias',
-      },
-      {
-        title: 'Pedidos de Compra',
-        adminUrl: 'admin/pedidos',
-        userUrl: 'user/pedidos',
-      },
-      { title: 'Alertas', adminUrl: 'admin/alertas' },
-      {
-        title: 'Itens de pedido',
-        adminUrl: 'admin/itens',
-        userUrl: 'user/itens',
-      },
+      { title: 'Usuários', path: 'usuarios' },
+      { title: 'Fornecedores', path: 'fornecedores' },
+      { title: 'Produtos', path: 'produtos' },
+      { title: 'Categorias', path: 'categorias' },
+      { title: 'Pedidos de Compra', path: 'pedidos' },
+      { title: 'Alertas', path: 'alertas' },
+      { title: 'Itens de pedido', path: 'itens' },
     ],
   },
-];
-
-export default navMain;
+]

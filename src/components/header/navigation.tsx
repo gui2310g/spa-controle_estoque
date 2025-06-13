@@ -1,10 +1,10 @@
 import { Link } from '@tanstack/react-router'
 import { useNav } from '@/hooks/use-nav'
 
-type Props = { isAdminNav?: boolean}
+type Props = { isAdminNav?: boolean }
 
 export default function Navigation({ isAdminNav = false }: Props) {
-  const nav = useNav(isAdminNav ? 'admin' : 'user') 
+  const nav = useNav(isAdminNav)
 
   return (
     <nav className="lg:flex flex-row text-white hidden">

@@ -1,19 +1,15 @@
-import navMain from "@/utils/nav-util"
+import type { NavSection } from '@/@types/types/nav'
+import { navMain } from '@/utils/nav-util'
 
-type Role = 'admin' | 'user'
+export function useNav(isAdmin: boolean): Array<NavSection> {
+  const basePath = isAdmin ? '/admin' : '/user'
 
-export const useNav = (role: Role = 'user') => {
-  const isAdmin = role === 'admin'
-
-  return navMain().map(section => ({
+  return navMain().map((section) => ({
     ...section,
-    items: section.items
-      .filter((item) => role === 'admin' || !item.isAdminPage)
-      .map(item => ({
-        ...item,
-        url: isAdmin ? `/${item.adminUrl}` : `/${item.userUrl}`, 
-      }))
-      .filter(item => item.url),
+    items: section.items.map((item) => ({
+      title: item.title,
+      url: `${basePath}/${item.path}`,
+      isAdmin,
+    })),
   }))
 }
-
