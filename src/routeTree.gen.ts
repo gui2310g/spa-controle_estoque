@@ -19,6 +19,7 @@ import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableImport } from './routes/demo.table'
 import { Route as AdminUsuariosImport } from './routes/admin/usuarios'
 import { Route as AdminProdutosImport } from './routes/admin/produtos'
+import { Route as AdminPedidosImport } from './routes/admin/pedidos'
 import { Route as AdminFornecedoresImport } from './routes/admin/fornecedores'
 import { Route as AdminCategoriasImport } from './routes/admin/categorias'
 import { Route as DemoFormSimpleImport } from './routes/demo.form.simple'
@@ -71,6 +72,12 @@ const AdminUsuariosRoute = AdminUsuariosImport.update({
 const AdminProdutosRoute = AdminProdutosImport.update({
   id: '/produtos',
   path: '/produtos',
+  getParentRoute: () => AdminRoute,
+} as any)
+
+const AdminPedidosRoute = AdminPedidosImport.update({
+  id: '/pedidos',
+  path: '/pedidos',
   getParentRoute: () => AdminRoute,
 } as any)
 
@@ -137,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFornecedoresImport
       parentRoute: typeof AdminImport
     }
+    '/admin/pedidos': {
+      id: '/admin/pedidos'
+      path: '/pedidos'
+      fullPath: '/admin/pedidos'
+      preLoaderRoute: typeof AdminPedidosImport
+      parentRoute: typeof AdminImport
+    }
     '/admin/produtos': {
       id: '/admin/produtos'
       path: '/produtos'
@@ -194,6 +208,7 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminCategoriasRoute: typeof AdminCategoriasRoute
   AdminFornecedoresRoute: typeof AdminFornecedoresRoute
+  AdminPedidosRoute: typeof AdminPedidosRoute
   AdminProdutosRoute: typeof AdminProdutosRoute
   AdminUsuariosRoute: typeof AdminUsuariosRoute
 }
@@ -201,6 +216,7 @@ interface AdminRouteChildren {
 const AdminRouteChildren: AdminRouteChildren = {
   AdminCategoriasRoute: AdminCategoriasRoute,
   AdminFornecedoresRoute: AdminFornecedoresRoute,
+  AdminPedidosRoute: AdminPedidosRoute,
   AdminProdutosRoute: AdminProdutosRoute,
   AdminUsuariosRoute: AdminUsuariosRoute,
 }
@@ -213,6 +229,7 @@ export interface FileRoutesByFullPath {
   '/usuarios': typeof UsuariosRoute
   '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/fornecedores': typeof AdminFornecedoresRoute
+  '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/produtos': typeof AdminProdutosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/demo/table': typeof DemoTableRoute
@@ -228,6 +245,7 @@ export interface FileRoutesByTo {
   '/usuarios': typeof UsuariosRoute
   '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/fornecedores': typeof AdminFornecedoresRoute
+  '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/produtos': typeof AdminProdutosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/demo/table': typeof DemoTableRoute
@@ -244,6 +262,7 @@ export interface FileRoutesById {
   '/usuarios': typeof UsuariosRoute
   '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/fornecedores': typeof AdminFornecedoresRoute
+  '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/produtos': typeof AdminProdutosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/demo/table': typeof DemoTableRoute
@@ -261,6 +280,7 @@ export interface FileRouteTypes {
     | '/usuarios'
     | '/admin/categorias'
     | '/admin/fornecedores'
+    | '/admin/pedidos'
     | '/admin/produtos'
     | '/admin/usuarios'
     | '/demo/table'
@@ -275,6 +295,7 @@ export interface FileRouteTypes {
     | '/usuarios'
     | '/admin/categorias'
     | '/admin/fornecedores'
+    | '/admin/pedidos'
     | '/admin/produtos'
     | '/admin/usuarios'
     | '/demo/table'
@@ -289,6 +310,7 @@ export interface FileRouteTypes {
     | '/usuarios'
     | '/admin/categorias'
     | '/admin/fornecedores'
+    | '/admin/pedidos'
     | '/admin/produtos'
     | '/admin/usuarios'
     | '/demo/table'
@@ -349,6 +371,7 @@ export const routeTree = rootRoute
       "children": [
         "/admin/categorias",
         "/admin/fornecedores",
+        "/admin/pedidos",
         "/admin/produtos",
         "/admin/usuarios"
       ]
@@ -362,6 +385,10 @@ export const routeTree = rootRoute
     },
     "/admin/fornecedores": {
       "filePath": "admin/fornecedores.tsx",
+      "parent": "/admin"
+    },
+    "/admin/pedidos": {
+      "filePath": "admin/pedidos.tsx",
       "parent": "/admin"
     },
     "/admin/produtos": {
