@@ -1,40 +1,35 @@
-import type { Pedidos } from '@/@types/types/pedidos'
+import type { Itens } from '@/@types/types/itens'
 import type { ColumnDef } from '@tanstack/react-table'
 import { DataTableSort } from '@/components/data-table/data-table-sort'
 import { ReusableDialog } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 
-export const PedidosColumns: Array<ColumnDef<Pedidos>> = [
+export const ItensColumns: Array<ColumnDef<Itens>> = [
   {
     accessorKey: 'id',
     header: 'Id',
   },
   {
-    accessorKey: 'fornecedores.nome',
+    accessorKey: 'pedido.id',
+    header: 'IdPedido',
+  },
+  {
+    accessorKey: 'produto.id',
+    header: 'IdProduto',
+  },
+  {
+    accessorKey: 'usuario.nome',
     header: ({ column }) => {
-      return <DataTableSort column={column} title="Fornecedor" />
+      return <DataTableSort column={column} title="Usuario" />
     },
   },
   {
-    accessorKey: 'status',
-    header: ({ column }) => {
-      return <DataTableSort column={column} title="Status" />
-    },
+    accessorKey: 'quantidade',
+    header: 'Quantidade',
   },
   {
-    accessorKey: 'data',
-    header: 'Data',
-    cell: ({ row }) => {
-      const data = row.original.data
-      return new Intl.DateTimeFormat('pt-BR', {
-        dateStyle: 'short',
-      }).format(data)
-    },
-  },
-  {
-    header: 'itens',
-    accessorKey: 'itens.length',
-    cell: ({ row }) => row.original.itens?.length ?? 0,
+    accessorKey: 'preco',
+    header: 'Preço',
   },
   {
     id: 'actions',
