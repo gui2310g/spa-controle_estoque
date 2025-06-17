@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { DataTable } from '@/components/data-table/data-table'
 import { FornecedoresColumns } from '@/utils/columns/fornecedores-columns'
-import { getFornecedoresData } from '@/utils/data/fornecedores-data'
+import { getFornecedoresData } from '@/data/fornecedores-data'
 
 export const Route = createFileRoute('/admin/fornecedores')({
   component: FornecedoresRoute,
 })
 
-const data = getFornecedoresData();
+const data = getFornecedoresData()
 
 function FornecedoresRoute() {
   return (

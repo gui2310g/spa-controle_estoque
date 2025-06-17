@@ -1,10 +1,12 @@
 import type { NavSection } from '@/@types/types/nav'
 
-export const navMain = (): Array<
+export const navMain = (
+  isAdmin: boolean,
+): Array<
   Omit<NavSection, 'items'> & {
     items: Array<{
       title: string
-      path: string 
+      path: string
     }>
   }
 > => [
@@ -12,12 +14,13 @@ export const navMain = (): Array<
     title: 'Controle de Estoque',
     url: '#',
     items: [
-      { title: 'Usuários', path: 'usuarios' },
+      ...(isAdmin ? [{ title: 'Usuários', path: 'usuarios' }] : []),
       { title: 'Fornecedores', path: 'fornecedores' },
       { title: 'Produtos', path: 'produtos' },
-      { title: 'Categorias', path: 'categorias' },
+      ...(isAdmin ? [{ title: 'Categorias', path: 'categorias' }] : []),
       { title: 'Pedidos de Compra', path: 'pedidos' },
-      { title: 'Alertas', path: 'alertas' },
+      ...(isAdmin ? [{ title: 'Alertas', path: 'alertas' }] : []),
+      ...(!isAdmin ? [{ title: 'Movimentações', path: 'movimentações' }] : []),
       { title: 'Itens de pedido', path: 'itens' },
     ],
   },

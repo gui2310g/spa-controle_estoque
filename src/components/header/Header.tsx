@@ -29,7 +29,7 @@ export default function Header({ isAdminNav = false }: { isAdminNav: boolean }) 
           <NavigationMenuItem>
             <NavigationMenuTrigger>
               <img src={UserPhoto} alt="User Photo" className="w-[30px]" />
-              <span className="ml-2">Admin</span>
+              <span className="ml-2">{isAdminNav === true ? "Admin" : "User"}</span>
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <NavigationMenuLink href='/'>Perfil</NavigationMenuLink>

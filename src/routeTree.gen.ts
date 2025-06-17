@@ -11,7 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as UsuariosImport } from './routes/usuarios'
+import { Route as UserImport } from './routes/user'
 import { Route as AdminImport } from './routes/admin'
 import { Route as IndexImport } from './routes/index'
 import { Route as UserFornecedoresImport } from './routes/user/fornecedores'
@@ -23,14 +23,15 @@ import { Route as AdminPedidosImport } from './routes/admin/pedidos'
 import { Route as AdminItensImport } from './routes/admin/itens'
 import { Route as AdminFornecedoresImport } from './routes/admin/fornecedores'
 import { Route as AdminCategoriasImport } from './routes/admin/categorias'
+import { Route as AdminAlertasImport } from './routes/admin/alertas'
 import { Route as DemoFormSimpleImport } from './routes/demo.form.simple'
 import { Route as DemoFormAddressImport } from './routes/demo.form.address'
 
 // Create/Update Routes
 
-const UsuariosRoute = UsuariosImport.update({
-  id: '/usuarios',
-  path: '/usuarios',
+const UserRoute = UserImport.update({
+  id: '/user',
+  path: '/user',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -47,9 +48,9 @@ const IndexRoute = IndexImport.update({
 } as any)
 
 const UserFornecedoresRoute = UserFornecedoresImport.update({
-  id: '/user/fornecedores',
-  path: '/user/fornecedores',
-  getParentRoute: () => rootRoute,
+  id: '/fornecedores',
+  path: '/fornecedores',
+  getParentRoute: () => UserRoute,
 } as any)
 
 const DemoTanstackQueryRoute = DemoTanstackQueryImport.update({
@@ -100,6 +101,12 @@ const AdminCategoriasRoute = AdminCategoriasImport.update({
   getParentRoute: () => AdminRoute,
 } as any)
 
+const AdminAlertasRoute = AdminAlertasImport.update({
+  id: '/alertas',
+  path: '/alertas',
+  getParentRoute: () => AdminRoute,
+} as any)
+
 const DemoFormSimpleRoute = DemoFormSimpleImport.update({
   id: '/demo/form/simple',
   path: '/demo/form/simple',
@@ -130,12 +137,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminImport
       parentRoute: typeof rootRoute
     }
-    '/usuarios': {
-      id: '/usuarios'
-      path: '/usuarios'
-      fullPath: '/usuarios'
-      preLoaderRoute: typeof UsuariosImport
+    '/user': {
+      id: '/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof UserImport
       parentRoute: typeof rootRoute
+    }
+    '/admin/alertas': {
+      id: '/admin/alertas'
+      path: '/alertas'
+      fullPath: '/admin/alertas'
+      preLoaderRoute: typeof AdminAlertasImport
+      parentRoute: typeof AdminImport
     }
     '/admin/categorias': {
       id: '/admin/categorias'
@@ -195,10 +209,10 @@ declare module '@tanstack/react-router' {
     }
     '/user/fornecedores': {
       id: '/user/fornecedores'
-      path: '/user/fornecedores'
+      path: '/fornecedores'
       fullPath: '/user/fornecedores'
       preLoaderRoute: typeof UserFornecedoresImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof UserImport
     }
     '/demo/form/address': {
       id: '/demo/form/address'
@@ -220,6 +234,7 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AdminRouteChildren {
+  AdminAlertasRoute: typeof AdminAlertasRoute
   AdminCategoriasRoute: typeof AdminCategoriasRoute
   AdminFornecedoresRoute: typeof AdminFornecedoresRoute
   AdminItensRoute: typeof AdminItensRoute
@@ -229,6 +244,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAlertasRoute: AdminAlertasRoute,
   AdminCategoriasRoute: AdminCategoriasRoute,
   AdminFornecedoresRoute: AdminFornecedoresRoute,
   AdminItensRoute: AdminItensRoute,
@@ -239,10 +255,21 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface UserRouteChildren {
+  UserFornecedoresRoute: typeof UserFornecedoresRoute
+}
+
+const UserRouteChildren: UserRouteChildren = {
+  UserFornecedoresRoute: UserFornecedoresRoute,
+}
+
+const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/usuarios': typeof UsuariosRoute
+  '/user': typeof UserRouteWithChildren
+  '/admin/alertas': typeof AdminAlertasRoute
   '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/fornecedores': typeof AdminFornecedoresRoute
   '/admin/itens': typeof AdminItensRoute
@@ -259,7 +286,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/usuarios': typeof UsuariosRoute
+  '/user': typeof UserRouteWithChildren
+  '/admin/alertas': typeof AdminAlertasRoute
   '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/fornecedores': typeof AdminFornecedoresRoute
   '/admin/itens': typeof AdminItensRoute
@@ -277,7 +305,8 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/usuarios': typeof UsuariosRoute
+  '/user': typeof UserRouteWithChildren
+  '/admin/alertas': typeof AdminAlertasRoute
   '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/fornecedores': typeof AdminFornecedoresRoute
   '/admin/itens': typeof AdminItensRoute
@@ -296,7 +325,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
-    | '/usuarios'
+    | '/user'
+    | '/admin/alertas'
     | '/admin/categorias'
     | '/admin/fornecedores'
     | '/admin/itens'
@@ -312,7 +342,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin'
-    | '/usuarios'
+    | '/user'
+    | '/admin/alertas'
     | '/admin/categorias'
     | '/admin/fornecedores'
     | '/admin/itens'
@@ -328,7 +359,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
-    | '/usuarios'
+    | '/user'
+    | '/admin/alertas'
     | '/admin/categorias'
     | '/admin/fornecedores'
     | '/admin/itens'
@@ -346,10 +378,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
-  UsuariosRoute: typeof UsuariosRoute
+  UserRoute: typeof UserRouteWithChildren
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  UserFornecedoresRoute: typeof UserFornecedoresRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
 }
@@ -357,10 +388,9 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
-  UsuariosRoute: UsuariosRoute,
+  UserRoute: UserRouteWithChildren,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  UserFornecedoresRoute: UserFornecedoresRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
 }
@@ -377,10 +407,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/admin",
-        "/usuarios",
+        "/user",
         "/demo/table",
         "/demo/tanstack-query",
-        "/user/fornecedores",
         "/demo/form/address",
         "/demo/form/simple"
       ]
@@ -391,6 +420,7 @@ export const routeTree = rootRoute
     "/admin": {
       "filePath": "admin.tsx",
       "children": [
+        "/admin/alertas",
         "/admin/categorias",
         "/admin/fornecedores",
         "/admin/itens",
@@ -399,8 +429,15 @@ export const routeTree = rootRoute
         "/admin/usuarios"
       ]
     },
-    "/usuarios": {
-      "filePath": "usuarios.tsx"
+    "/user": {
+      "filePath": "user.tsx",
+      "children": [
+        "/user/fornecedores"
+      ]
+    },
+    "/admin/alertas": {
+      "filePath": "admin/alertas.tsx",
+      "parent": "/admin"
     },
     "/admin/categorias": {
       "filePath": "admin/categorias.tsx",
@@ -433,7 +470,8 @@ export const routeTree = rootRoute
       "filePath": "demo.tanstack-query.tsx"
     },
     "/user/fornecedores": {
-      "filePath": "user/fornecedores.tsx"
+      "filePath": "user/fornecedores.tsx",
+      "parent": "/user"
     },
     "/demo/form/address": {
       "filePath": "demo.form.address.tsx"

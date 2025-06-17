@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { DataTable } from '@/components/data-table/data-table'
 import { ItensColumns } from '@/utils/columns/itens-columns'
-import { getItensData } from '@/utils/data/itens-data'
+import { getItensData } from '@/data/itens-data'
 
 export const Route = createFileRoute('/admin/itens')({
   component: RouteComponent,
@@ -10,12 +10,12 @@ export const Route = createFileRoute('/admin/itens')({
 const data = getItensData()
 function RouteComponent() {
   return (
-      <DataTable
-        columns={ItensColumns}
-        data={data}
-        filterColumn="nome"
-        filterPlaceholder="Filtrar nomes..."
-        showAddButton={false}
-      />
-    )
+    <DataTable
+      columns={ItensColumns}
+      data={data}
+      filterColumn="nome"
+      filterPlaceholder="Filtrar nomes..."
+      showAddButton={false}
+    />
+  )
 }

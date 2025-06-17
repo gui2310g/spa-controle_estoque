@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { DataTable } from '@/components/data-table/data-table'
 import { PedidosColumns } from '@/utils/columns/pedidos-columns'
-import { getPedidosData } from '@/utils/data/pedidos-data'
+import { getPedidosData } from '@/data/pedidos-data'
 
 export const Route = createFileRoute('/admin/pedidos')({
   component: RouteComponent,
