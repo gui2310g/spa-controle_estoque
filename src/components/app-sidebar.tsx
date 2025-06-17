@@ -20,7 +20,7 @@ export function AppSidebar({
   isAdmin: boolean
   isSidebar?: boolean
 }) {
-  const data = useNav(isAdmin) // Filtra as rotas com base no parâmetro isAdmin
+  const data = useNav(isAdmin)
 
   return (
     <Sidebar {...props}>
@@ -35,7 +35,7 @@ export function AppSidebar({
                 {section.items.map((menuItem) => (
                   <SidebarMenuItem key={menuItem.title}>
                     <SidebarMenuButton asChild>
-                      <Link to={menuItem.path}>{menuItem.title}</Link>
+                      <Link to={menuItem.url}>{menuItem.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

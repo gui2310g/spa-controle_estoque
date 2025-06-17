@@ -13,7 +13,7 @@ export default function Navigation({ isAdminNav = false }: Props) {
           {section.items.map((item) => (
             <Link
               key={item.title}
-              to={item.path}
+              to={item.url}
               className="px-2 font-bold hover:text-gray-300"
             >
               {item.title}
