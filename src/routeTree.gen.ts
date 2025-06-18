@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UserImport } from './routes/user'
+import { Route as AuthImport } from './routes/auth'
 import { Route as AdminImport } from './routes/admin'
 import { Route as IndexImport } from './routes/index'
 import { Route as UserProdutosImport } from './routes/user/produtos'
@@ -36,6 +37,12 @@ import { Route as DemoFormAddressImport } from './routes/demo.form.address'
 const UserRoute = UserImport.update({
   id: '/user',
   path: '/user',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRoute = AuthImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -163,6 +170,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
     }
     '/user': {
@@ -332,6 +346,7 @@ const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/user': typeof UserRouteWithChildren
   '/admin/alertas': typeof AdminAlertasRoute
   '/admin/categorias': typeof AdminCategoriasRoute
@@ -354,6 +369,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/user': typeof UserRouteWithChildren
   '/admin/alertas': typeof AdminAlertasRoute
   '/admin/categorias': typeof AdminCategoriasRoute
@@ -377,6 +393,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/user': typeof UserRouteWithChildren
   '/admin/alertas': typeof AdminAlertasRoute
   '/admin/categorias': typeof AdminCategoriasRoute
@@ -401,6 +418,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/auth'
     | '/user'
     | '/admin/alertas'
     | '/admin/categorias'
@@ -422,6 +440,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin'
+    | '/auth'
     | '/user'
     | '/admin/alertas'
     | '/admin/categorias'
@@ -443,6 +462,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/auth'
     | '/user'
     | '/admin/alertas'
     | '/admin/categorias'
@@ -466,6 +486,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
   UserRoute: typeof UserRouteWithChildren
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
@@ -476,6 +497,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
   UserRoute: UserRouteWithChildren,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
@@ -495,6 +517,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/admin",
+        "/auth",
         "/user",
         "/demo/table",
         "/demo/tanstack-query",
@@ -516,6 +539,9 @@ export const routeTree = rootRoute
         "/admin/produtos",
         "/admin/usuarios"
       ]
+    },
+    "/auth": {
+      "filePath": "auth.tsx"
     },
     "/user": {
       "filePath": "user.tsx",
