@@ -1,12 +1,12 @@
-export type Movimentações = {
+export type Movimentacoes = {
     id: number,
     produtoId: number,
-    tipo: MovimentaçaoTipo
-    quantidade: 10
+    tipo: MovimentacaoTipo
+    quantidade: number
     Data: Date
 }
 
-export enum MovimentaçaoTipo {
+export enum MovimentacaoTipo {
     ENTRADA = "Entrada",
     SAIDA = "Saida"
 }

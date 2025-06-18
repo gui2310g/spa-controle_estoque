@@ -14,6 +14,10 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as UserImport } from './routes/user'
 import { Route as AdminImport } from './routes/admin'
 import { Route as IndexImport } from './routes/index'
+import { Route as UserProdutosImport } from './routes/user/produtos'
+import { Route as UserPedidosImport } from './routes/user/pedidos'
+import { Route as UserMovimentacoesImport } from './routes/user/movimentacoes'
+import { Route as UserItensImport } from './routes/user/itens'
 import { Route as UserFornecedoresImport } from './routes/user/fornecedores'
 import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableImport } from './routes/demo.table'
@@ -45,6 +49,30 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const UserProdutosRoute = UserProdutosImport.update({
+  id: '/produtos',
+  path: '/produtos',
+  getParentRoute: () => UserRoute,
+} as any)
+
+const UserPedidosRoute = UserPedidosImport.update({
+  id: '/pedidos',
+  path: '/pedidos',
+  getParentRoute: () => UserRoute,
+} as any)
+
+const UserMovimentacoesRoute = UserMovimentacoesImport.update({
+  id: '/movimentacoes',
+  path: '/movimentacoes',
+  getParentRoute: () => UserRoute,
+} as any)
+
+const UserItensRoute = UserItensImport.update({
+  id: '/itens',
+  path: '/itens',
+  getParentRoute: () => UserRoute,
 } as any)
 
 const UserFornecedoresRoute = UserFornecedoresImport.update({
@@ -214,6 +242,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserFornecedoresImport
       parentRoute: typeof UserImport
     }
+    '/user/itens': {
+      id: '/user/itens'
+      path: '/itens'
+      fullPath: '/user/itens'
+      preLoaderRoute: typeof UserItensImport
+      parentRoute: typeof UserImport
+    }
+    '/user/movimentacoes': {
+      id: '/user/movimentacoes'
+      path: '/movimentacoes'
+      fullPath: '/user/movimentacoes'
+      preLoaderRoute: typeof UserMovimentacoesImport
+      parentRoute: typeof UserImport
+    }
+    '/user/pedidos': {
+      id: '/user/pedidos'
+      path: '/pedidos'
+      fullPath: '/user/pedidos'
+      preLoaderRoute: typeof UserPedidosImport
+      parentRoute: typeof UserImport
+    }
+    '/user/produtos': {
+      id: '/user/produtos'
+      path: '/produtos'
+      fullPath: '/user/produtos'
+      preLoaderRoute: typeof UserProdutosImport
+      parentRoute: typeof UserImport
+    }
     '/demo/form/address': {
       id: '/demo/form/address'
       path: '/demo/form/address'
@@ -257,10 +313,18 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface UserRouteChildren {
   UserFornecedoresRoute: typeof UserFornecedoresRoute
+  UserItensRoute: typeof UserItensRoute
+  UserMovimentacoesRoute: typeof UserMovimentacoesRoute
+  UserPedidosRoute: typeof UserPedidosRoute
+  UserProdutosRoute: typeof UserProdutosRoute
 }
 
 const UserRouteChildren: UserRouteChildren = {
   UserFornecedoresRoute: UserFornecedoresRoute,
+  UserItensRoute: UserItensRoute,
+  UserMovimentacoesRoute: UserMovimentacoesRoute,
+  UserPedidosRoute: UserPedidosRoute,
+  UserProdutosRoute: UserProdutosRoute,
 }
 
 const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
@@ -279,6 +343,10 @@ export interface FileRoutesByFullPath {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/user/fornecedores': typeof UserFornecedoresRoute
+  '/user/itens': typeof UserItensRoute
+  '/user/movimentacoes': typeof UserMovimentacoesRoute
+  '/user/pedidos': typeof UserPedidosRoute
+  '/user/produtos': typeof UserProdutosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
@@ -297,6 +365,10 @@ export interface FileRoutesByTo {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/user/fornecedores': typeof UserFornecedoresRoute
+  '/user/itens': typeof UserItensRoute
+  '/user/movimentacoes': typeof UserMovimentacoesRoute
+  '/user/pedidos': typeof UserPedidosRoute
+  '/user/produtos': typeof UserProdutosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
@@ -316,6 +388,10 @@ export interface FileRoutesById {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/user/fornecedores': typeof UserFornecedoresRoute
+  '/user/itens': typeof UserItensRoute
+  '/user/movimentacoes': typeof UserMovimentacoesRoute
+  '/user/pedidos': typeof UserPedidosRoute
+  '/user/produtos': typeof UserProdutosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
@@ -336,6 +412,10 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/user/fornecedores'
+    | '/user/itens'
+    | '/user/movimentacoes'
+    | '/user/pedidos'
+    | '/user/produtos'
     | '/demo/form/address'
     | '/demo/form/simple'
   fileRoutesByTo: FileRoutesByTo
@@ -353,6 +433,10 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/user/fornecedores'
+    | '/user/itens'
+    | '/user/movimentacoes'
+    | '/user/pedidos'
+    | '/user/produtos'
     | '/demo/form/address'
     | '/demo/form/simple'
   id:
@@ -370,6 +454,10 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/user/fornecedores'
+    | '/user/itens'
+    | '/user/movimentacoes'
+    | '/user/pedidos'
+    | '/user/produtos'
     | '/demo/form/address'
     | '/demo/form/simple'
   fileRoutesById: FileRoutesById
@@ -432,7 +520,11 @@ export const routeTree = rootRoute
     "/user": {
       "filePath": "user.tsx",
       "children": [
-        "/user/fornecedores"
+        "/user/fornecedores",
+        "/user/itens",
+        "/user/movimentacoes",
+        "/user/pedidos",
+        "/user/produtos"
       ]
     },
     "/admin/alertas": {
@@ -471,6 +563,22 @@ export const routeTree = rootRoute
     },
     "/user/fornecedores": {
       "filePath": "user/fornecedores.tsx",
+      "parent": "/user"
+    },
+    "/user/itens": {
+      "filePath": "user/itens.tsx",
+      "parent": "/user"
+    },
+    "/user/movimentacoes": {
+      "filePath": "user/movimentacoes.tsx",
+      "parent": "/user"
+    },
+    "/user/pedidos": {
+      "filePath": "user/pedidos.tsx",
+      "parent": "/user"
+    },
+    "/user/produtos": {
+      "filePath": "user/produtos.tsx",
       "parent": "/user"
     },
     "/demo/form/address": {
