@@ -33,7 +33,7 @@ export default function Header({ isAdminNav = false }: { isAdminNav: boolean }) 
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <NavigationMenuLink href='/'>Perfil</NavigationMenuLink>
-              <NavigationMenuLink href="/docs">Deslogar</NavigationMenuLink>
+              <NavigationMenuLink href="/auth">Deslogar</NavigationMenuLink>
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>

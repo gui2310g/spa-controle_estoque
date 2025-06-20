@@ -1,4 +1,8 @@
+import { useState } from 'react'
+import { useRouter } from '@tanstack/react-router'
+import { AlertCircleIcon } from 'lucide-react'
 import { ReusableDialog } from './ui/dialog'
+import { Alert, AlertTitle } from './ui/alert'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,12 +15,38 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
+const admin = 'admin@admin.com'
+const adminPassword = 'admin'
+const user = 'user@user.com'
+const userpassword = 'user'
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
+
+  const router = useRouter()
+  
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (email === admin && password === adminPassword) router.navigate({ to: '/admin' })
+    if (email === user && password === userpassword) router.navigate({ to: '/user' })
+     
+    setError('Credenciais inválidas!')
+    
+  }
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircleIcon />
+          <AlertTitle>{error}</AlertTitle>
+        </Alert>
+      )}
       <Card>
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
@@ -25,7 +55,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
@@ -33,6 +63,8 @@ export function LoginForm({
                   id="email"
                   type="email"
                   placeholder="m@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -46,7 +78,13 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full cursor-pointer">
